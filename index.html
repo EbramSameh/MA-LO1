@@ -1,0 +1,304 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Math LO1 Practice Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: graph-paper hero with the team, a sticky tool bar, a key-rules strip, then eight lettered sections of short warm-up questions with hidden answers. */
+:root{
+  --bg:#0B1431; --panel:#111E45; --panel2:#16265A; --line:#223665; --grid:#18285A;
+  --fg:#EAF0FF; --mute:#A6B6DA; --edge:#2C437C; --acct:#3DDBC0; --ink:#0B1431;
+  --teal:#3DDBC0; --sun:#FFC857; --coral:#FF7A59; --violet:#A99BFF;
+  --f-display:'Bricolage Grotesque','Trebuchet MS',Arial,sans-serif;
+  --f-body:'Figtree','Segoe UI',Arial,sans-serif;
+  --f-mono:'JetBrains Mono','Courier New',monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F3F6FC; --panel:#FFFFFF; --panel2:#EAF0FB; --line:#C9D5EE; --grid:#E1E9F7;
+    --fg:#0E1A3D; --mute:#44557F; --edge:#B6C5E6; --acct:#00796B; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F3F6FC; --panel:#FFFFFF; --panel2:#EAF0FB; --line:#C9D5EE; --grid:#E1E9F7;
+  --fg:#0E1A3D; --mute:#44557F; --edge:#B6C5E6; --acct:#00796B; color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:17px;line-height:1.55;padding-inline:16px;padding-block:0 48px}
+.wrap{max-width:1040px;margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;margin:0}
+p{margin:0}
+:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+
+/* hero */
+.hero{margin-top:16px;border:2px solid var(--edge);border-radius:20px;background-color:var(--panel);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:28px 28px;display:grid;grid-template-columns:1.1fr .9fr;gap:8px;align-items:center;padding:36px 32px;overflow:hidden}
+.eyebrow{font-family:var(--f-mono);font-weight:700;font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--acct)}
+.hero h1{font-size:clamp(2.5rem,6.4vw,4.6rem);font-weight:800;line-height:1;margin-block:12px 14px}
+.hero h1 span{display:block;font-size:.42em;font-weight:600;line-height:1.2;margin-top:10px;color:var(--mute)}
+.lead{font-size:1.05rem;max-width:34em}
+.team-label{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);margin-top:22px}
+.team{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.chip{font-family:var(--f-display);font-weight:800;font-size:1.15rem;color:var(--ink);padding:7px 16px;border-radius:999px;border:2px solid var(--ink)}
+.stats{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:20px;font-family:var(--f-mono);font-size:13px;color:var(--mute)}
+.stats b{color:var(--fg)}
+.plot{min-width:0}
+.plot svg{width:100%;height:auto;display:block}
+
+/* tool bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line);margin-top:16px;padding-block:10px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.bar .grp{display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.pill{font:700 13px var(--f-mono);letter-spacing:.04em;background:var(--panel);color:var(--fg);border:2px solid var(--edge);border-radius:999px;padding:5px 12px;cursor:pointer}
+.pill[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.pill:hover{border-color:var(--acct)}
+.nav .pill{width:34px;height:34px;padding:0;display:grid;place-items:center;border-radius:10px;font-size:14px}
+.sp{flex:1}
+.prog{font:700 13px var(--f-mono);color:var(--mute)}
+.prog b{color:var(--acct)}
+
+/* key rules */
+.rules{margin-top:28px}
+.rules h2,.sec-h h2{font-size:clamp(1.6rem,3.4vw,2.2rem);font-weight:800}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin-top:14px}
+.rule{background:var(--panel);border:2px solid var(--edge);border-radius:14px;padding:14px 16px;font-size:15.5px}
+.rule h3{font-size:1.02rem;font-weight:800;margin-bottom:4px;color:var(--acct)}
+
+/* sections */
+.sec{margin-top:44px;scroll-margin-top:70px}
+.sec-h{display:flex;gap:16px;align-items:center;margin-bottom:14px}
+.tile{flex:none;width:64px;height:64px;border-radius:16px;border:2px solid var(--ink);display:grid;place-items:center;font:800 2.2rem var(--f-display);color:var(--ink)}
+.sec-h p{color:var(--mute);font-size:15px;margin-top:2px}
+.q{background:var(--panel);border:2px solid var(--edge);border-radius:16px;padding:16px 18px;margin-top:12px}
+.q-top{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;margin-bottom:8px}
+.qid{font:800 15px var(--f-mono);color:var(--bg);background:var(--fg);border-radius:6px;padding:3px 9px}
+.done{margin-left:auto;display:flex;gap:7px;align-items:center;font:700 13px var(--f-mono);color:var(--mute);cursor:pointer}
+.done input{width:18px;height:18px;accent-color:var(--teal);cursor:pointer}
+.qt{font-size:1.06rem}
+.q.is-done{opacity:.6}
+details{margin-top:12px}
+summary{cursor:pointer;font:700 14px var(--f-mono);letter-spacing:.04em;color:var(--acct);list-style:none;display:inline-block;padding:6px 12px;border:2px dashed var(--acct);border-radius:10px}
+summary::-webkit-details-marker{display:none}
+details[open] summary{border-style:solid}
+.ans{margin-top:10px;padding:12px 14px;background:var(--panel2);border-radius:10px;border-left:6px solid var(--acct);font-size:16px}
+sup{font-size:.72em;line-height:0}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.2;margin-inline:.12em;font-size:.95em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding-inline:.25em}
+.fr>span:last-child{padding-inline:.25em}
+
+footer{margin-top:56px;border-top:2px solid var(--edge);padding-top:20px;color:var(--mute);font-size:14.5px;display:grid;gap:10px}
+footer .team{margin-top:0}
+.theme{justify-self:start}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;padding:24px 18px}
+  .tile{width:52px;height:52px;font-size:1.8rem}
+  .sp{display:none}
+  .nav{overflow-x:auto;flex-wrap:nowrap;max-width:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Learning Outcome 1 · Grade 11 STEM</p>
+      <h1>Math LO1 Practice Lab<span>Modeling with Functions: Polynomial and Absolute Value Functions</span></h1>
+      <p class="lead">Quick one-step warm-up questions for the session after we explain LO1 and before we solve the past exam questions.</p>
+      <p class="team-label">Team</p>
+      <div class="team">
+        <span class="chip" style="background:var(--teal)">Ebraam</span>
+        <span class="chip" style="background:var(--sun)">Adham</span>
+        <span class="chip" style="background:var(--coral)">Mazen</span>
+        <span class="chip" style="background:var(--violet)">Ace</span>
+      </div>
+      <p class="stats"><span><b id="n-q">38</b> questions</span><span><b>8</b> sections</span><span>answers hidden until you tap</span></p>
+    </div>
+    <div class="plot"><svg id="plot" viewBox="0 0 520 320" role="img" aria-label="A cubic curve crossing the x-axis at three roots, and a V-shaped absolute value graph"></svg></div>
+  </header>
+
+  <div class="bar" id="bar">
+    <div class="grp nav" id="nav" aria-label="Jump to section"></div>
+    <span class="sp"></span>
+    <button class="pill" id="toggle-all" aria-pressed="false">Open all answers</button>
+    <span class="prog"><b id="n-done">0</b> / <span id="n-total">38</span> done</span>
+  </div>
+
+  <section class="rules" aria-labelledby="rules-h">
+    <h2 id="rules-h">Key rules before you start</h2>
+    <div class="rgrid" id="rules"></div>
+  </section>
+
+  <main id="sections"></main>
+
+  <footer>
+    <div class="team"><span class="chip" style="background:var(--teal)">Ebraam</span><span class="chip" style="background:var(--sun)">Adham</span><span class="chip" style="background:var(--coral)">Mazen</span><span class="chip" style="background:var(--violet)">Ace</span></div>
+    <p>Warm-up questions written from the LO1 outline: Modeling with Functions, Polynomial and Absolute Value Functions. They are not the school's official past exams.</p>
+    <button class="pill theme" id="theme">Switch light / dark</button>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var COL={A:'var(--teal)',B:'var(--sun)',C:'var(--coral)',D:'var(--violet)',E:'var(--teal)',F:'var(--sun)',G:'var(--coral)',H:'var(--violet)'};
+
+  function fmt(s){
+    s=s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    s=s.replace(/\[\[(.+?)\|(.+?)\]\]/g,'<span class="fr"><span>$1</span><span>$2</span></span>');
+    s=s.replace(/\^\{([^}]*)\}/g,'<sup>$1</sup>').replace(/\^([0-9a-zA-Z])/g,'<sup>$1</sup>');
+    return s;
+  }
+
+  var RULES=[
+    ['Degree and roots','A polynomial of degree n has exactly n roots, counting repeated and complex ones. Its graph has at most n − 1 turning points.'],
+    ['End behavior','Even degree: both ends go the same way. Odd degree: the ends go opposite ways. A negative leading coefficient flips the picture.'],
+    ['Remainder and Factor','Dividing f(x) by (x − c) leaves remainder f(c). And (x − c) is a factor exactly when f(c) = 0.'],
+    ['Rational Root Theorem','Every rational root p/q has p dividing the constant term and q dividing the leading coefficient.'],
+    ['Descartes\' Rule of Signs','Sign changes in f(x) give the possible positive roots. Sign changes in f(−x) give the negative ones. Subtract 2 each time.'],
+    ['Multiplicity','Odd multiplicity: the graph crosses the axis. Even multiplicity: it touches and bounces back.'],
+    ['Absolute value','|u| = c means u = c or u = −c. |u| < c means −c < u < c. |u| > c means u < −c or u > c.'],
+    ['Inverse functions','Swap x and y, then solve for y. The function must be one-to-one. The graph reflects in the line y = x.']
+  ];
+
+  var SECS=[
+   {k:'A',t:'Polynomials, degree and graph shape',c:'Polynomial · Degree of the function · Attributes of a graph (turning points, symmetry, even/odd)',q:[
+    ['For f(x) = −3x^5 + 2x^3 − x + 7, state the degree, the leading coefficient and the constant term.','Degree 5, leading coefficient −3, constant term 7. The degree is the highest power of x, and the leading coefficient is the number in front of it.'],
+    ['Which of these are polynomials? (a) 3x^2 − 5x   (b) x^{−2} + 1   (c) √x + 2   (d) 4','(a) and (d). A polynomial only has whole-number powers of x that are 0 or more. (b) has x^{−2} and (c) has x^{1/2}, so neither is a polynomial. (d) is a constant polynomial of degree 0.'],
+    ['Describe the end behavior of f(x) = −2x^4 + x − 5.','The degree is even and the leading coefficient is negative, so both ends go down: as x → ∞, f(x) → −∞, and as x → −∞, f(x) → −∞.'],
+    ['Is f(x) = x^4 − 3x^2 even, odd or neither?','f(−x) = x^4 − 3x^2 = f(x), so f is even. Its graph is symmetric about the y-axis.'],
+    ['What is the most turning points a polynomial of degree 5 can have?','At most 5 − 1 = 4 turning points.']
+   ]},
+   {k:'B',t:'Operations with polynomials',c:'Operations with polynomials · Polynomial in one variable',q:[
+    ['Add: (3x^2 − 2x + 5) + (x^3 − 4x^2 + x − 1)','Combine like terms: x^3 + (3 − 4)x^2 + (−2 + 1)x + (5 − 1) = x^3 − x^2 − x + 4.'],
+    ['Subtract: (5x^2 + 3x − 4) − (2x^2 − x + 6)','Change the signs of the second bracket, then combine: 5x^2 − 2x^2 + 3x + x − 4 − 6 = 3x^2 + 4x − 10.'],
+    ['Expand: (x + 3)(x − 5)','x^2 − 5x + 3x − 15 = x^2 − 2x − 15.'],
+    ['Multiply: (2x − 3)(x^2 + 4x − 5)','2x(x^2 + 4x − 5) − 3(x^2 + 4x − 5) = 2x^3 + 8x^2 − 10x − 3x^2 − 12x + 15 = 2x^3 + 5x^2 − 22x + 15.'],
+    ['Divide x^2 + 5x + 6 by x + 2.','Factor the top: x^2 + 5x + 6 = (x + 2)(x + 3). So the quotient is x + 3 and the remainder is 0.']
+   ]},
+   {k:'C',t:'Remainder and Factor Theorems',c:'Remainder theorem · Factor theorem',q:[
+    ['Find the remainder when f(x) = x^3 − 4x^2 + 2x − 7 is divided by x − 2, without dividing.','By the Remainder Theorem the remainder is f(2) = 8 − 16 + 4 − 7 = −11.'],
+    ['Find the remainder when x^2 + 3x − 5 is divided by x − 1.','The remainder is f(1) = 1 + 3 − 5 = −1.'],
+    ['Is x + 1 a factor of x^3 + 2x^2 − x − 2? Show why.','Test x = −1: (−1) + 2 + 1 − 2 = 0. Since f(−1) = 0, the Factor Theorem says x + 1 is a factor.'],
+    ['Is x − 2 a factor of x^3 − 8?','f(2) = 8 − 8 = 0, so yes, x − 2 is a factor.']
+   ]},
+   {k:'D',t:'Roots of polynomial equations',c:'Roots · Multiplicity · Fundamental Theorem of Algebra · Descartes\' Rule of Signs · Intermediate Value Theorem',q:[
+    ['How many roots does x^7 − 3x^2 + 1 = 0 have? Say what is being counted.','Exactly 7. By the Fundamental Theorem of Algebra, a polynomial of degree n has n roots when you count repeated roots (multiplicity) and complex roots.'],
+    ['Find the roots of (x − 2)(x + 5)(x − 7) = 0.','Set each factor to zero: x = 2, x = −5 and x = 7.'],
+    ['Solve x^2 − 5x + 6 = 0.','Factor: (x − 2)(x − 3) = 0, so x = 2 or x = 3.'],
+    ['List every possible rational root of 2x^3 − 5x^2 − 4x + 3.','p divides 3, so p is ±1 or ±3. q divides 2, so q is ±1 or ±2. The possible roots p/q are ±1, ±3, ±[[1|2]] and ±[[3|2]].'],
+    ['State the multiplicity of each root of f(x) = (x − 4)^3 (x + 1)^2. What does the graph do at each?','x = 4 has multiplicity 3, so the graph crosses the axis and flattens as it passes through. x = −1 has multiplicity 2, so the graph touches the axis and bounces back.'],
+    ['Use Descartes\' Rule of Signs on f(x) = x^3 − 2x^2 + x − 5. How many positive and negative roots could it have?','f(x) has signs + − + −, which is 3 sign changes, so 3 or 1 positive roots. f(−x) = −x^3 − 2x^2 − x − 5 has no sign changes, so there are no negative roots.'],
+    ['Let f(x) = x^3 − 2x − 5. Does f have a root between 2 and 3? Explain.','f(2) = −1 and f(3) = 16. The sign changes from negative to positive and f is continuous, so by the Intermediate Value Theorem there is a root between 2 and 3.']
+   ]},
+   {k:'E',t:'Building a polynomial curve',c:'Polynomial curve · Construct a polynomial through specific points',q:[
+    ['Write a polynomial with zeros 1, 2 and 3 and leading coefficient 1.','f(x) = (x − 1)(x − 2)(x − 3) = x^3 − 6x^2 + 11x − 6.'],
+    ['A graph crosses the x-axis at x = −2 and x = 5. Write a quadratic with leading coefficient 1 that has these zeros.','f(x) = (x + 2)(x − 5) = x^2 − 3x − 10.'],
+    ['Find the quadratic with zeros at −1 and 3 whose graph passes through (0, −3).','f(x) = a(x + 1)(x − 3). f(0) = a(1)(−3) = −3a = −3, so a = 1. f(x) = x^2 − 2x − 3.']
+   ]},
+   {k:'F',t:'Absolute value functions, equations and inequalities',c:'Absolute value · Reveal and explain properties of the function and its graph',q:[
+    ['Evaluate |−7| − |3 − 8| + |−2|·|4|.','7 − 5 + 2 × 4 = 7 − 5 + 8 = 10.'],
+    ['Write f(x) = |x − 4| as a piecewise function.','f(x) = x − 4 if x ≥ 4, and f(x) = 4 − x if x < 4. The rule switches where the inside, x − 4, equals zero.'],
+    ['Solve |2x − 5| = 9.','2x − 5 = 9 gives x = 7. 2x − 5 = −9 gives x = −2. Solution set {−2, 7}.'],
+    ['Solve |x − 3| ≤ 4 and write the answer in interval notation.','−4 ≤ x − 3 ≤ 4. Add 3 to every part: −1 ≤ x ≤ 7. The answer is [−1, 7].'],
+    ['Solve |x − 3| > 2 and write the answer in interval notation.','x − 3 > 2 or x − 3 < −2, so x > 5 or x < 1. The answer is (−∞, 1) ∪ (5, ∞).'],
+    ['State the vertex of y = |x + 2| − 1 and say whether it opens up or down.','The vertex is (−2, −1). The coefficient of the absolute value is +1, so it opens up.']
+   ]},
+   {k:'G',t:'Inverse and reciprocal functions',c:'Inverse of a function (graphically and algebraically) · Reciprocal function',q:[
+    ['The point (3, 7) lies on the graph of an invertible function f. Name a point on the graph of f^{−1}.','(7, 3). The inverse swaps x and y, so the two graphs are reflections of each other in the line y = x.'],
+    ['Find the inverse of f(x) = 3x − 7.','Write y = 3x − 7 and swap x and y: x = 3y − 7. Solve for y: y = [[x + 7|3]]. So f^{−1}(x) = [[x + 7|3]].'],
+    ['Find the inverse of f(x) = x^3 + 2.','Swap x and y: x = y^3 + 2, so y^3 = x − 2 and y = ∛(x − 2). So f^{−1}(x) = ∛(x − 2).'],
+    ['Show that f(x) = 2x + 1 and g(x) = [[x − 1|2]] are inverses of each other.','f(g(x)) = 2·[[x − 1|2]] + 1 = x − 1 + 1 = x, and g(f(x)) = [[(2x + 1) − 1|2]] = x. Both compositions give x, so they are inverses.'],
+    ['State the domain and the vertical asymptote of f(x) = [[1|x − 3]].','The denominator cannot be zero, so the domain is x ≠ 3. The vertical asymptote is x = 3.']
+   ]},
+   {k:'H',t:'Modeling real situations',c:'Model real-world situations with polynomial and absolute value functions · Capstone link: water treatment',q:[
+    ['A rectangular garden has length (x + 4) m and width (x − 1) m. Write its area as a polynomial in x.','Area = length × width = (x + 4)(x − 1) = x^2 + 3x − 4 square metres.'],
+    ['Treated water must have a pH within 0.3 of 7.2. Write this as an absolute value inequality and solve it.','|p − 7.2| ≤ 0.3, so 6.9 ≤ p ≤ 7.5. The allowed pH values are [6.9, 7.5].'],
+    ['In a water treatment tank, the disinfectant concentration is C(t) = −0.1t(t − 8)(t + 2) mg/L for 0 ≤ t ≤ 8 hours. When is the concentration zero? Find C(4).','The factors give zeros at t = 0 and t = 8 (t = −2 is outside the domain). C(4) = −0.1(4)(−4)(6) = 9.6 mg/L.']
+   ]}
+  ];
+
+  var $=function(i){return document.getElementById(i)};
+  var total=0, doneSet={}, store=null;
+  try{ store=window.localStorage; var d=JSON.parse(store.getItem('lo1-done-v2')||'{}'); if(d&&typeof d==='object') doneSet=d; }catch(e){ store=null; }
+  function save(){ try{ if(store) store.setItem('lo1-done-v2',JSON.stringify(doneSet)); }catch(e){} }
+
+  /* rules */
+  $('rules').innerHTML=RULES.map(function(r){return '<div class="rule"><h3>'+fmt(r[0])+'</h3><p>'+fmt(r[1])+'</p></div>';}).join('');
+
+  /* sections */
+  var html='', nav='';
+  SECS.forEach(function(s){
+    nav+='<button class="pill" data-go="sec'+s.k+'" title="'+s.t.replace(/"/g,'')+'" aria-label="Section '+s.k+': '+s.t.replace(/"/g,'')+'">'+s.k+'</button>';
+    html+='<section class="sec" id="sec'+s.k+'"><div class="sec-h"><div class="tile" style="background:'+COL[s.k]+'">'+s.k+'</div><div><h2>'+fmt(s.t)+'</h2><p>'+fmt(s.c)+'</p></div></div>';
+    s.q.forEach(function(q,i){
+      total++;
+      var id=s.k+(i+1);
+      html+='<article class="q" id="q'+id+'"><div class="q-top"><span class="qid">'+id+'</span><label class="done"><input type="checkbox" data-id="'+id+'"'+(doneSet[id]?' checked':'')+'>Done</label></div><p class="qt">'+fmt(q[0])+'</p><details><summary>Show answer</summary><div class="ans">'+fmt(q[1])+'</div></details></article>';
+    });
+    html+='</section>';
+  });
+  $('sections').innerHTML=html;
+  $('nav').innerHTML=nav;
+  $('n-q').textContent=total; $('n-total').textContent=total;
+
+  function refreshDone(){
+    var n=0;
+    document.querySelectorAll('.q').forEach(function(a){
+      var id=a.id.slice(1), on=!!doneSet[id];
+      a.classList.toggle('is-done',on); if(on) n++;
+    });
+    $('n-done').textContent=n;
+  }
+  refreshDone();
+  $('sections').addEventListener('change',function(e){
+    var t=e.target; if(t&&t.matches('input[data-id]')){ if(t.checked) doneSet[t.dataset.id]=1; else delete doneSet[t.dataset.id]; save(); refreshDone(); }
+  });
+
+  /* nav */
+  $('nav').addEventListener('click',function(e){
+    var b=e.target.closest('button[data-go]'); if(!b) return;
+    var el=$(b.dataset.go); if(el) el.scrollIntoView({block:'start'});
+  });
+
+  /* open all */
+  var allOpen=false;
+  $('toggle-all').addEventListener('click',function(){
+    allOpen=!allOpen;
+    document.querySelectorAll('details').forEach(function(d){d.open=allOpen;});
+    this.setAttribute('aria-pressed',String(allOpen));
+    this.textContent=allOpen?'Hide all answers':'Open all answers';
+  });
+
+  /* theme toggle */
+  $('theme').addEventListener('click',function(){
+    var r=document.documentElement, cur=r.getAttribute('data-theme');
+    if(!cur) cur=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';
+    r.setAttribute('data-theme',cur==='dark'?'light':'dark');
+  });
+
+  /* hero plot: y = x^3 - 7x + 6 (roots -3, 1, 2) and a V-shaped absolute value graph */
+  var X0=300,Y0=220,SX=50,SY=14;
+  function px(x){return X0+SX*x} function py(y){return Y0-SY*y}
+  var svg=$('plot'), o='';
+  for(var gx=-5;gx<=4;gx++){o+='<line x1="'+px(gx)+'" y1="20" x2="'+px(gx)+'" y2="300" stroke="var(--line)" stroke-width="1" fill="none"/>';}
+  o+='<line x1="30" y1="'+Y0+'" x2="500" y2="'+Y0+'" stroke="var(--mute)" stroke-width="2.5" fill="none"/>';
+  o+='<line x1="'+X0+'" y1="16" x2="'+X0+'" y2="304" stroke="var(--mute)" stroke-width="2.5" fill="none"/>';
+  var v='M',c='M',first=true,x;
+  for(x=-3.6;x<=2.45;x+=0.05){c+=(first?'':'L')+px(x).toFixed(1)+' '+py(x*x*x-7*x+6).toFixed(1);first=false;}
+  first=true;
+  for(x=-3.6;x<=4.2;x+=0.2){v+=(first?'':'L')+px(x).toFixed(1)+' '+py(1.5*Math.abs(x-2.8)).toFixed(1);first=false;}
+  o+='<path d="'+v+'" fill="none" stroke="var(--teal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 9"/>';
+  o+='<path d="'+c+'" fill="none" stroke="var(--coral)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>';
+  [-3,1,2].forEach(function(r){
+    o+='<circle cx="'+px(r)+'" cy="'+Y0+'" r="8" fill="var(--sun)" stroke="var(--ink)" stroke-width="2.5"/>';
+    o+='<text x="'+px(r)+'" y="'+(Y0+30)+'" text-anchor="middle" font-family="JetBrains Mono, monospace" font-weight="700" font-size="16" fill="var(--fg)">'+(r<0?'−'+(-r):r)+'</text>';
+  });
+  o+='<text x="40" y="40" font-family="JetBrains Mono, monospace" font-weight="700" font-size="15" fill="var(--fg)">f(x) = x³ − 7x + 6</text>';
+  o+='<text x="40" y="62" font-family="JetBrains Mono, monospace" font-weight="700" font-size="15" fill="var(--acct)">roots: −3, 1, 2</text>';
+  svg.innerHTML=o;
+})();
+</script>
+
+</body></html>
